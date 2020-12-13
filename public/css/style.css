@@ -124,7 +124,14 @@ table {
 }
 
 body {
-  background-color: rgb(216, 216, 216);
+  background-color: rgb(218, 9, 9);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+wrapper {
+  height: 100%;
 }
 
 a:link {
@@ -139,31 +146,41 @@ footer {
 
 header {
   height: 50px;
-  line-height: 50px;
   margin: 0 2em;
   padding: 0;
   border-bottom: solid 1px rgb(158, 158, 158);
   border-right: solid 1px rgb(158, 158, 158);
   border-left: solid 1px rgb(158, 158, 158);
-  text-shadow: 0 0 3px #ff0000, 0 0 5px #0000ff;
   display: flex;
+  align-items: center;
   flex-direction: row;
 }
 
-.logo {
+header .logo {
   border-right: solid 1px rgb(158, 158, 158);
-  padding: 0px 10px;
+  padding: 0px 15px;
+  line-height: 50px;
+  font-weight: 800;
+  background-color: rgb(198, 198, 198);
+}
+
+header nav {
+  flex: 4;
 }
 
 header ul {
-  flex-grow: 4;
-  list-style-type: none;
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
-  margin: 0px 20px;
+  justify-content: space-around;
+  list-style-type: none;
+  text-shadow: 0 0 3px #ff0000, 0 0 5px #0000ff;
 }
 
 header ul li {
-  width: 50px;
-  margin-left: 20px;
+ß
+}
+
+/* main  */
+main {
 }
