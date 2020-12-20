@@ -1,213 +1,150 @@
-html,
-body,
-div,
-span,
-applet,
-object,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-a,
-abbr,
-acronym,
-address,
-big,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-s,
-samp,
-small,
-strike,
-strong,
-sub,
-sup,
-tt,
-var,
-b,
-u,
-i,
-center,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-canvas,
-details,
-embed,
-figure,
-figcaption,
-footer,
-header,
-hgroup,
-menu,
-nav,
-output,
-ruby,
-section,
-summary,
-time,
-mark,
-audio,
-video {
+* {
   margin: 0;
   padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-}
-/* HTML5 display-role reset for older browsers */
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section {
-  display: block;
   box-sizing: border-box;
 }
-body {
-  line-height: 1;
-}
-ol,
-ul {
-  list-style: none;
-}
-blockquote,
-q {
-  quotes: none;
-}
-blockquote:before,
-blockquote:after,
-q:before,
-q:after {
-  content: '';
-  content: none;
-}
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
 
-html,
-body,
-wrapper {
-  height: 100%;
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fff;
+  color: #000;
+  font-size: 15px;
+  line-height: 1.5;
 }
 
 body {
-  background-color: yellow;
-  font-family: roboto;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+}
+html {
+  height: -webkit-fill-available;
 }
 
-wrapper {
-  margin: 0 auto;
-  width: 90%;
-  display: flex;
-  background-color: white;
-  flex-direction: column;
-  border-right: solid 1px rgb(158, 158, 158);
-  border-left: solid 1px rgb(158, 158, 158);
-}
-
-a:link {
+a {
+  color: #262626;
   text-decoration: none;
 }
 
-a:hover {
-  text-decoration: underline;
-}
-
-header {
-  height: 50px;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  border-bottom: solid 1px rgb(158, 158, 158);
-}
-
-header .logo {
-  border-right: solid 1px rgb(158, 158, 158);
-  padding: 0px 15px;
-  line-height: 51px;
-  font-weight: 800;
-  background-color: rgb(228, 228, 228);
-}
-
-header nav {
-  flex: 10;
-}
-
-header ul {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+ul {
   list-style-type: none;
-  font-size: 0.9em;
 }
 
-.login {
-  flex: 1;
-  padding: 5px;
-  font-size: 0.8em;
-  background-color: rgb(228, 228, 228);
-  border-left: solid 1px rgb(158, 158, 158);
+.wrapper {
+  width: 90%;
+  max-width: 1100px;
+  margin: 0 auto;
+  min-height: 85%;
+}
+
+.main-nav {
   display: flex;
-  justify-content: center;
   align-items: center;
-  height: 40px;
+  justify-content: space-between;
+  height: 60px;
+  padding: 20px 0px;
+  font-size: 13px;
 }
 
-.login p {
-  font-size: 0.8em;
+.main-nav .logo {
+  width: 100px;
+  color: rgb(156, 4, 211);
+  font-size: 20px;
 }
 
-/* main  */
-main {
-  flex: 4;
+.main-nav ul {
+  display: flex;
 }
 
-footer {
-  padding: 5px;
-  line-height: 50px;
-  background-color: white;
-  border-top: solid 1px rgb(158, 158, 158);
+.main-nav ul li {
+  padding: 0 10px;
+}
+
+.main-nav ul li a {
+  padding-bottom: 2px;
+}
+
+.main-nav ul li a:hover {
+  border-bottom: 2px solid #262626;
+}
+
+.main-nav ul.main-menu {
+  flex: 1;
+  margin-left: 20px;
+}
+
+.menu-btn {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  display: none;
+  z-index: 2;
+}
+
+.main {
+  flex: 7;
+}
+
+.main h1 {
+  border-bottom: solid 1px #f2f2f2;
+}
+
+.main article {
+  margin: 15px 0;
+}
+
+.footer {
+  background-color: #f2f2f2;
+  color: #616161;
+  font-size: 12px;
+  padding: 20px 0;
   display: flex;
   justify-content: center;
+  width: 90%;
+  max-width: 1100px;
+  margin: 30px auto 0;
+}
+
+@media only screen and (max-width: 700px) {
+  .menu-btn {
+    display: block;
+  }
+
+  .main-nav .right-menu {
+    margin-right: 50px;
+  }
+
+  .main-nav ul.main-menu {
+    position: absolute;
+    left: 0px;
+    top: 60px;
+    background-color: #f2f2f2;
+    width: 50%;
+    border-right: #ccc 1px solid;
+    opacity: 0.9;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    transform: translateX(-500px);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .main-nav ul.main-menu.show {
+    transform: translateX(-20px);
+  }
+
+  .main-nav ul.main-menu li {
+    height: 40px;
+    border-bottom: #ccc 1px solid;
+    line-height: 40px;
+  }
+
+  .main-nav ul.main-menu li a:hover {
+    margin-left: 2px;
+    border-bottom: none;
+  }
+
+  .main-nav ul.main-menu li:last-child {
+    border-bottom: none;
+  }
 }
