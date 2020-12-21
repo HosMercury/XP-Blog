@@ -1,39 +1,20 @@
 <%- include('partials/header') %>
+<a href="/posts/add" class="post-add"><i class="fas fa-plus"></i></a>
 <h1>Posts</h1>
-<article>
-  <h2 class="post-header">Post 1 header on the blog</h2>
-  <h5 class="post-author">Marko Napoli</h5>
-  <h5 class="post-date">15 Dec 2020</h5>
-  <p class="post-content">
-    Select Surfaces are on sale now - save while supplies last,Select Surfaces
-    are on sale now - save while supplies last
-  </p>
-</article>
-<article>
-  <h2 class="post-header">Post 1 header on the blog</h2>
-  <h5 class="post-author">Marko Napoli</h5>
-  <h5 class="post-date">15 Dec 2020</h5>
-  <p class="post-content">
-    Select Surfaces are on sale now - save while supplies last,Select Surfaces
-    are on sale now - save while supplies last
-  </p>
-</article>
-<article>
-  <h2 class="post-header">Post 1 header on the blog</h2>
-  <h5 class="post-author">Marko Napoli</h5>
-  <h5 class="post-date">15 Dec 2020</h5>
-  <p class="post-content">
-    Select Surfaces are on sale now - save while supplies last,Select Surfaces
-    are on sale now - save while supplies last
-  </p>
-</article>
-<article>
-  <h2 class="post-header">Post 1 header on the blog</h2>
-  <h5 class="post-author">Marko Napoli</h5>
-  <h5 class="post-date">15 Dec 2020</h5>
-  <p class="post-content">
-    Select Surfaces are on sale now - save while supplies last,Select Surfaces
-    are on sale now - save while supplies last
-  </p>
-</article>
+
+<ul>
+  <% if(posts.length < 1) { %>
+  <p>No posts yet</p>
+  <% } else { %> <% posts.forEach(post => { %>
+  <li class="post">
+    <article>
+      <h2 class="post-header"><%= post.title %></h2>
+      <h5 class="post-author"><%= post.user_id %></h5>
+      <h5 class="post-date"><%= post.created_at.toDateString() %></h5>
+      <p class="post-content"><%= post.content %></p>
+    </article>
+  </li>
+  <% }) }%>
+</ul>
+
 <%- include('partials/footer') %>

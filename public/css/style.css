@@ -16,6 +16,7 @@ body {
   min-height: 100vh;
   min-height: -webkit-fill-available;
 }
+
 html {
   height: -webkit-fill-available;
 }
@@ -29,11 +30,15 @@ ul {
   list-style-type: none;
 }
 
+.container {
+}
+
 .wrapper {
   width: 90%;
   max-width: 1100px;
   margin: 0 auto;
   min-height: 85%;
+  flex: 9;
 }
 
 .main-nav {
@@ -88,8 +93,68 @@ ul {
   border-bottom: solid 1px #f2f2f2;
 }
 
-.main article {
+.post {
   margin: 15px 0;
+  border-bottom: 1px rgb(162, 162, 162) solid;
+  padding: 10px;
+  width: 90%;
+}
+
+.post:last-child {
+  border: none;
+}
+
+.post-author {
+  float: left;
+  margin-right: 30px;
+  font-size: 10px;
+}
+
+.post-date {
+  font-size: 10px;
+  font-style: italic;
+  color: grey;
+}
+
+.post-content {
+  margin-top: 10px;
+}
+
+.post-add {
+  position: absolute;
+  top: 70px;
+  right: 30px;
+  width: 50px;
+  height: 25px;
+  font-size: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 20px;
+}
+
+input,
+textarea {
+  margin: 5px;
+  padding: 5px;
+  border: solid 1px rgb(202, 202, 202);
+  border-radius: 5px;
+}
+
+textarea {
+  height: 100px;
+}
+
+input[type='submit'] {
+  cursor: pointer;
+  align-self: flex-end;
+  width: 100px;
+  background-color: rgb(1, 61, 1);
+  color: white;
+  margin: 20px 30px;
 }
 
 .footer {
@@ -101,7 +166,7 @@ ul {
   justify-content: center;
   width: 90%;
   max-width: 1100px;
-  margin: 30px auto 0;
+  margin: 20px auto 0;
 }
 
 @media only screen and (max-width: 700px) {
