@@ -8,7 +8,7 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #fff;
   color: #000;
-  font-size: 15px;
+  font-size: 17px;
   line-height: 1.5;
 }
 
@@ -28,9 +28,6 @@ a {
 
 ul {
   list-style-type: none;
-}
-
-.container {
 }
 
 .wrapper {
@@ -167,6 +164,14 @@ input[type='submit'] {
   width: 90%;
   max-width: 1100px;
   margin: 20px auto 0;
+}
+
+.errors li {
+  color: red;
+  margin-left: 30px;
+  padding: 5px 10px;
+  border-left: solid 4px rgb(230, 230, 230);
+  font-size: 12px;
 }
 
 @media only screen and (max-width: 700px) {

@@ -1,0 +1,41 @@
+<%- include(`../partials/header`) %>
+
+<h1>Add post</h1>
+<ul class="errors"></ul>
+<form action="/posts" method="post" id="post-form">
+  Title :<input name="title" type="text" class="title" />
+  <!-- textarea -->
+  Content :<textarea name="content" class="content"></textarea>
+  <input type="submit" class="submit" />
+</form>
+
+<script>
+  $(document).ready(function () {
+    $('#post-form').submit(e => {
+      e.preventDefault();
+      const title = $('.title').val();
+      const content = $('.content').val();
+      const err = [];
+
+      if (title.length < 4) {
+        err.push('Title should be more than 4');
+      }
+
+      if (content.length < 4) {
+        err.push('Content should be more than 4');
+      }
+
+      $('.errors').empty();
+
+      err.forEach(er => {
+        $('.errors').append('<li>' + er + '</li>');
+      });
+
+      if (err.length < 1) {
+        $.post('/posts', { title, content });
+      }
+    });
+  });
+</script>
+
+<%- include(`../partials/footer`) %>

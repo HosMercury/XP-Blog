@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+let express = require('express');
+let router = express.Router();
 const pool = require('../config/db');
 
 // // middleware that is specific to this router
@@ -25,7 +25,7 @@ router.get(`/`, async (req, res) => {
   await pool
     .query(query)
     .then(resp =>
-      res.render(`../views/index`, {
+      res.render(`index`, {
         posts: resp.rows,
       })
     )
@@ -33,11 +33,21 @@ router.get(`/`, async (req, res) => {
 });
 
 router.get(`/add`, (req, res) => {
-  res.render(`add-post`, {});
+  res.render(`posts/add`, {});
 });
 
-router.post(`/`, (req, res) => {
-  console.log(req.body);
+router.post(`/`, async (req, res) => {
+  const title = req.body.title;
+  const content = req.body.content;
+
+  if (title.length > 4 && content.length > 4) {
+    q = 'INSERT INTO posts(title, content , user_id) values($1,$2, $3)';
+    v = [title, content, 1];
+    const result = await pool.query(q, v).then(resp => {
+      res.render('posts/view');
+    });
+    console.log(result);
+  }
 });
 
 module.exports = router;
