@@ -13,26 +13,23 @@
   $(document).ready(function () {
     $('#post-form').submit(e => {
       e.preventDefault();
+      $('.errors').empty();
       const title = $('.title').val();
       const content = $('.content').val();
       const err = [];
-
       if (title.length < 4) {
         err.push('Title should be more than 4');
       }
-
       if (content.length < 4) {
         err.push('Content should be more than 4');
       }
-
-      $('.errors').empty();
-
       err.forEach(er => {
         $('.errors').append('<li>' + er + '</li>');
       });
 
       if (err.length < 1) {
         $.post('/posts', { title, content });
+        window.location.replace('/');
       }
     });
   });

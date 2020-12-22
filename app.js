@@ -8,10 +8,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
 
 // Routes
-var index = require('./routes/index');
+var posts = require('./routes/posts');
 
-app.use('/', index);
-app.use('/posts', index);
+app.use('/', posts);
+app.use('/posts', posts);
 
 //View Engine
 app.set('view engine', 'ejs');

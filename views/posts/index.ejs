@@ -1,0 +1,39 @@
+<%- include('../partials/header') %>
+<a href="/posts/add" class="post-add"><i class="fas fa-plus"></i></a>
+<h1>Posts</h1>
+
+<ul>
+  <% if(posts.length < 1) { %>
+  <p>No posts yet</p>
+  <% } else { %> <% posts.forEach(post => { %>
+  <li class="post">
+    <article>
+      <a href="/posts/<%= post.id %>" class="post-link">
+        <h2 class="post-header"><%= post.title %></h2></a
+      >
+      <h5 class="post-author"><%= post.user_id %></h5>
+      <h5 class="post-date"><%= post.created_at.toDateString() %></h5>
+      <p class="post-content"><%= post.content.substring(0,10) + ' ...'%></p>
+      <div class="post-options">
+        <button href="#" class="post-edit">
+          <i class="fas fa-edit" onClick="editPost();"></i>
+        </button>
+        <button href="#" class="post-delete" onClick="deletePost()">
+          <i class="fas fa-trash-alt"></i>
+        </button>
+      </div>
+    </article>
+  </li>
+  <% }) }%>
+</ul>
+<script>
+  function deletePost() {
+    alert('delete');
+  }
+
+  function editPost() {
+    window.location.replace('/posts/' + 40);
+  }
+</script>
+
+<%- include('../partials/footer') %>

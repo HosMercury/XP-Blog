@@ -101,6 +101,10 @@ ul {
   border: none;
 }
 
+a.post-link:hover {
+  text-decoration: underline;
+}
+
 .post-author {
   float: left;
   margin-right: 30px;
@@ -172,6 +176,25 @@ input[type='submit'] {
   padding: 5px 10px;
   border-left: solid 4px rgb(230, 230, 230);
   font-size: 12px;
+}
+
+.post-edit,
+.post-delete {
+  background-color: white;
+  color: grey;
+  border: none;
+  font-size: 14px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.post-edit:hover,
+.post-delete:hover {
+  opacity: 0.7;
+}
+
+.post-delete {
+  color: red;
 }
 
 @media only screen and (max-width: 700px) {
