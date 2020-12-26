@@ -10,8 +10,10 @@ app.use(express.static(__dirname + '/public'));
 // Routes
 var posts = require('./routes/posts');
 
-app.use('/', posts);
 app.use('/posts', posts);
+app.get('/', (req, res) => res.status(304).redirect('/posts?p=1'));
+
+// app.get('/', (req, res) => req.render('posts/list'));
 
 //View Engine
 app.set('view engine', 'ejs');

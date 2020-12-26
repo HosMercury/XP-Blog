@@ -13,31 +13,83 @@ router.get('/setup', async (req, res) => {
   const v = [`Hello World`, `lorem ipsum vola content`, 1];
   const results = await pool
     .query(q, v)
-    .then(res => console.log(res.rows[0]))
-    .catch(err => console.log(err));
-
-  res.send(results);
+    .then(res => res.status(200).send(res.rows[0]))
+    .catch(err => res.status(500).send('database err'));
 });
 
-router.get(`/`, async (req, res) => {
-  const query = `SELECT * FROM posts ORDER BY created_at DESC`;
+const paginate = async (p, res) => {
+  if (isNaN(p)) res.status(304).redirect('/?p=1');
+
+  let totalPosts = 0;
 
   await pool
-    .query(query)
-    .then(resp =>
-      res.render(`posts/index`, {
+    .query(`SELECT COUNT(*) FROM posts`)
+    .then(resp => {
+      totalPosts = resp.rows[0];
+    })
+    .catch(err => res.status(200).send('database error'));
+
+  const rowsPerPage = 5;
+  const pagesCount = Math.ceil(totalPosts.count / rowsPerPage);
+  let limit = 0;
+
+  if (p > 1) limit += 5;
+
+  const q = `SELECT * FROM posts ORDER BY created_at DESC LIMIT $1 , $2`;
+
+  await pool
+    .query(q, [limit, rowsPerPage])
+    .then(resp => {
+      console.log(resp.rows);
+      res.status(200).render('posts/list', {
         posts: resp.rows,
-      })
-    )
-    .catch(err => res.send(`database error`));
+      });
+    })
+    .catch(err => {
+      //
+    });
+};
+
+router.get(`/`, async (req, res) => {
+  paginate(req.query.p, res);
+
+  // await pool
+  //   .query(q)
+  //   .then(resp =>
+  //     res.status(200).render(`posts/list`, {
+  //       posts: resp.rows,
+  //     })
+  //   )
+  //   .catch(err => res.status(500).send(`database error`));
 });
 
+queryPost = async (id, res, view = 'edit') => {
+  if (isNaN(id)) res.status(500).send('url error');
+
+  const q = ` SELECT * FROM posts WHERE id = $1`;
+
+  await pool
+    .query(q, [id])
+    .then(resp => {
+      res.render(`posts/${view}`, { post: resp.rows[0], view });
+    })
+    .catch(err => res.status(500).send('database error'));
+};
+
 router.get(`/add`, (req, res) => {
-  res.render(`posts/add`, {});
+  res.status(200).render('posts/add', { post: {}, view: 'add' });
+});
+
+router.get('/:id', async (req, res) => {
+  queryPost(req.params.id, res, 'view');
+});
+
+router.get(`/:id/edit`, (req, res) => {
+  queryPost(req.params.id, res, 'edit');
 });
 
 router.get(`/view`, (req, res) => {
-  res.render(`posts/view`, {});
+  res.status(200).render(`posts/view`);
 });
 
 router.post(`/`, async (req, res) => {
@@ -50,9 +102,9 @@ router.post(`/`, async (req, res) => {
     await pool
       .query(q, v)
       .then(resp => {
-        res.send('ok');
+        res.status(200).render('posts/view');
       })
-      .catch(err => res.send('do not play with me'));
+      .catch(err => res.status(500).send('do not play with me'));
   }
 });
 

@@ -1,0 +1,46 @@
+<ul class="errors"></ul>
+<form
+  action="/posts"
+  method="<%= view === 'edit' ? 'PATCH' : 'POST' %>"
+  id="post-form"
+>
+  Title :<input
+    name="title"
+    type="text"
+    class="title"
+    value="<%= post.title %>"
+  />
+  <!-- textarea -->
+  Content :<textarea name="content" class="content">
+<%= post.content %></textarea
+  >
+  <input type="submit" class="submit" value="submit" />
+</form>
+
+<script>
+  $(document).ready(function () {
+    let err = [];
+    $('.submit').prop('disabled', true);
+
+    $('.title').blur(e => {
+      if (e.target.value.length < 4) err[0] = 'Title should be more than 4';
+      else if (e.target.value.length > 4) err.splice(0, 1);
+      errs();
+    });
+
+    $('.content').blur(e => {
+      if (e.target.value.length < 10) err[1] = 'Content should be more than 10';
+      else if (e.target.value.length > 10) err.splice(1, 1);
+      errs();
+    });
+
+    const errs = () => {
+      if (err.length < 1) $('.submit').removeAttr('disabled');
+
+      $('.errors').empty();
+      err.forEach(er => {
+        if (er !== null) $('.errors').append('<li>' + er + '</li>');
+      });
+    };
+  });
+</script>

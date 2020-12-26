@@ -1,5 +1,14 @@
 <%- include(`../partials/header`) %>
 
-<p>View</p>
+<h1 class="post-header"><%= post.id +'-'+ post.title%></h1>
+<h5 class="post-author"><%= post.user_id%></h5>
+<h5 class="post-date"><%= post.created_at.toDateString()%></h5>
+<p class="post-content"><%= post.content%></p>
+
+<section class="post-options">
+  <a href="/posts/<%=post.id %>/edit" class="post-edit"
+    ><i class="fas fa-edit"> Edit</i></a
+  >
+</section>
 
 <%- include(`../partials/footer`) %>

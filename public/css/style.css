@@ -76,6 +76,7 @@ ul {
 
 .menu-btn {
   position: absolute;
+  cursor: pointer;
   top: 20px;
   right: 30px;
   display: none;
@@ -149,13 +150,19 @@ textarea {
   height: 100px;
 }
 
-input[type='submit'] {
+.submit {
   cursor: pointer;
   align-self: flex-end;
   width: 100px;
   background-color: rgb(1, 61, 1);
   color: white;
   margin: 20px 30px;
+}
+
+.submit:disabled {
+  background-color: rgb(175, 173, 173);
+  color: rgb(80, 80, 80);
+  cursor: default;
 }
 
 .footer {

@@ -14,14 +14,6 @@
       <h5 class="post-author"><%= post.user_id %></h5>
       <h5 class="post-date"><%= post.created_at.toDateString() %></h5>
       <p class="post-content"><%= post.content.substring(0,10) + ' ...'%></p>
-      <div class="post-options">
-        <button href="#" class="post-edit">
-          <i class="fas fa-edit" onClick="editPost();"></i>
-        </button>
-        <button href="#" class="post-delete" onClick="deletePost()">
-          <i class="fas fa-trash-alt"></i>
-        </button>
-      </div>
     </article>
   </li>
   <% }) }%>
@@ -31,9 +23,7 @@
     alert('delete');
   }
 
-  function editPost() {
-    window.location.replace('/posts/' + 40);
-  }
+  function editPost() {}
 </script>
 
 <%- include('../partials/footer') %>
