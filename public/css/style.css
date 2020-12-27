@@ -234,6 +234,7 @@ textarea {
   display: flex;
   padding: 10px;
   justify-content: space-between;
+  font-size: 80%;
 }
 
 .flash-close {

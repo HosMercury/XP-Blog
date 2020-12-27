@@ -4,6 +4,9 @@
   method="<%= view === 'edit' ? 'PATCH' : 'POST' %>"
   id="post-form"
 >
+  <!-- id -->
+  <input type="hidden" name="id" value="<%=post.id%>" />
+  <!-- Title  -->
   Title :<input
     name="title"
     type="text"
@@ -12,7 +15,8 @@
   />
   <!-- textarea -->
   Content :<textarea name="content" class="content">
-<%= post.content %></textarea
+<%= post.content %>
+</textarea
   >
   <input type="submit" class="submit" value="submit" />
 </form>

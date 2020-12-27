@@ -89,7 +89,7 @@ router.post(`/`, async (req, res) => {
   const title = req.body.title;
   const content = req.body.content;
 
-  if (title.length > 4 && content.length > 4) {
+  if (title.length > 4 && content.length > 10) {
     q =
       'INSERT INTO posts(title, content , user_id) values($1,$2, $3) Returning *';
     v = [title, content, 1];
@@ -99,6 +99,29 @@ router.post(`/`, async (req, res) => {
         res.status(200).render('posts/view', {
           post: resp.rows[0],
           flash: { color: 'green', msg: 'Your post successfully added' },
+        });
+      })
+      .catch(err => res.status(500).send('do not play with me'));
+  }
+});
+
+router.patch('/', async (req, res) => {
+  // this request not work
+  console.log('patch', req.body.id);
+  const title = req.body.title;
+  const content = req.body.content;
+  const id = req.body.id;
+  if (isNaN(id)) res.status(500).send('form input error');
+
+  if (title.length > 4 && content.length > 10) {
+    q = 'UPDATE posts SET title = $1 , content =$2 WHERE id = $3 Returning *';
+    v = [title, content, id];
+    await pool
+      .query(q, v)
+      .then(resp => {
+        res.status(200).render('posts/view', {
+          post: resp.rows[0],
+          flash: { color: 'green', msg: 'Your post successfully updated' },
         });
       })
       .catch(err => res.status(500).send('do not play with me'));

@@ -21,7 +21,7 @@
 <!-- pagination -->
 <section class="pagination">
   <% if(p > 1){ %>
-  <a href="/posts/?p=<%=parseInt(p)-1%>" class="page"><<</a>
+  <a href="/posts/?p=<%=parseInt(p)-1%>" class="page"><</a>
   <% } %>
   <!-- pages numbers -->
   <% for(i = 0; i < pages; i++) {%>
@@ -29,7 +29,7 @@
   <%}%>
   <!--  -->
   <% if(p < pages){ %>
-  <a href="/posts/?p=<%=parseInt(p)+1%>" class="page">>></a>
+  <a href="/posts/?p=<%=parseInt(p)+1%>" class="page">></a>
   <% } %>
 </section>
 
