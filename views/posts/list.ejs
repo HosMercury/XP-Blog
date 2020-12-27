@@ -18,6 +18,21 @@
   </li>
   <% }) }%>
 </ul>
+<!-- pagination -->
+<section class="pagination">
+  <% if(p > 1){ %>
+  <a href="/posts/?p=<%=parseInt(p)-1%>" class="page"><<</a>
+  <% } %>
+  <!-- pages numbers -->
+  <% for(i = 0; i < pages; i++) {%>
+  <a href="/posts/?p=<%=i+1%> " class="page"> <%=i+1%> </a>
+  <%}%>
+  <!--  -->
+  <% if(p < pages){ %>
+  <a href="/posts/?p=<%=parseInt(p)+1%>" class="page">>></a>
+  <% } %>
+</section>
+
 <script>
   function deletePost() {
     alert('delete');

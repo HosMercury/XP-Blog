@@ -34,4 +34,13 @@
           </ul>
       </nav>
     <main class="main">
+      
+      <% if(locals.flash) { %>
+        <section class="flash">
+          <h5 class="flash-msg"><%=flash.msg%></h5> 
+          <button class="flash-close">
+            <i class="fas fa-times-circle"></i>
+          </button>
+        </section>
+      <%}%>
 

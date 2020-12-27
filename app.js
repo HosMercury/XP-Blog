@@ -8,9 +8,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
 
 // Routes
-var posts = require('./routes/posts');
+var postsRouter = require('./routes/postsRouter');
 
-app.use('/posts', posts);
+app.use('/posts', postsRouter);
 app.get('/', (req, res) => res.status(304).redirect('/posts?p=1'));
 
 // app.get('/', (req, res) => req.render('posts/list'));

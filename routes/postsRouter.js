@@ -25,24 +25,26 @@ const paginate = async (p, res) => {
   await pool
     .query(`SELECT COUNT(*) FROM posts`)
     .then(resp => {
-      totalPosts = resp.rows[0];
+      posts = resp.rows[0];
     })
     .catch(err => res.status(200).send('database error'));
 
-  const rowsPerPage = 5;
-  const pagesCount = Math.ceil(totalPosts.count / rowsPerPage);
-  let limit = 0;
+  const limit = 5;
+  const pages = Math.ceil(posts.count / limit);
+  let offset = 0;
 
-  if (p > 1) limit += 5;
+  if (p > 1) offset += 5;
 
-  const q = `SELECT * FROM posts ORDER BY created_at DESC LIMIT $1 , $2`;
+  const q = `SELECT * FROM posts ORDER BY id DESC LIMIT $1 OFFSET $2`;
 
   await pool
-    .query(q, [limit, rowsPerPage])
+    .query(q, [limit, offset])
     .then(resp => {
-      console.log(resp.rows);
       res.status(200).render('posts/list', {
         posts: resp.rows,
+        pages,
+        limit,
+        p,
       });
     })
     .catch(err => {
@@ -52,15 +54,6 @@ const paginate = async (p, res) => {
 
 router.get(`/`, async (req, res) => {
   paginate(req.query.p, res);
-
-  // await pool
-  //   .query(q)
-  //   .then(resp =>
-  //     res.status(200).render(`posts/list`, {
-  //       posts: resp.rows,
-  //     })
-  //   )
-  //   .catch(err => res.status(500).send(`database error`));
 });
 
 queryPost = async (id, res, view = 'edit') => {
@@ -97,12 +90,16 @@ router.post(`/`, async (req, res) => {
   const content = req.body.content;
 
   if (title.length > 4 && content.length > 4) {
-    q = 'INSERT INTO posts(title, content , user_id) values($1,$2, $3)';
+    q =
+      'INSERT INTO posts(title, content , user_id) values($1,$2, $3) Returning *';
     v = [title, content, 1];
     await pool
       .query(q, v)
       .then(resp => {
-        res.status(200).render('posts/view');
+        res.status(200).render('posts/view', {
+          post: resp.rows[0],
+          flash: { color: 'green', msg: 'Your post successfully added' },
+        });
       })
       .catch(err => res.status(500).send('do not play with me'));
   }
