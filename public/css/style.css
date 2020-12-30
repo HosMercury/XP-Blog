@@ -8,7 +8,7 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #fff;
   color: #000;
-  font-size: 17px;
+  font-size: 20px;
   line-height: 1.5;
 }
 
@@ -44,13 +44,13 @@ ul {
   justify-content: space-between;
   height: 60px;
   padding: 20px 0px;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .main-nav .logo {
-  width: 100px;
+  width: 150px;
   color: rgb(156, 4, 211);
-  font-size: 20px;
+  font-size: 30px;
 }
 
 .main-nav ul {
@@ -92,7 +92,7 @@ ul {
 }
 
 .post {
-  margin: 15px 0;
+  margin: 17px 0;
   border-bottom: 1px rgb(162, 162, 162) solid;
   padding: 10px;
   width: 90%;
@@ -109,11 +109,11 @@ a.post-link:hover {
 .post-author {
   float: left;
   margin-right: 30px;
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .post-date {
-  font-size: 10px;
+  font-size: 14px;
   font-style: italic;
   color: grey;
 }
@@ -125,7 +125,7 @@ a.post-link:hover {
 .post-add {
   position: absolute;
   top: 70px;
-  right: 30px;
+  right: 60px;
   width: 50px;
   height: 25px;
   font-size: 20px;
@@ -168,7 +168,7 @@ textarea {
 .footer {
   background-color: #f2f2f2;
   color: #616161;
-  font-size: 12px;
+  font-size: 14px;
   padding: 20px 0;
   display: flex;
   justify-content: center;
@@ -182,7 +182,7 @@ textarea {
   margin-left: 30px;
   padding: 5px 10px;
   border-left: solid 4px rgb(230, 230, 230);
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .post-edit,
@@ -206,21 +206,34 @@ textarea {
 
 /* pagination */
 .pagination {
+  max-width: 1100px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
+  font-size: 14px;
+  padding-top: 20px;
+  background-color: red;
 }
 
 .page {
-  text-decoration: none;
-  display: block;
+  cursor: pointer;
   text-align: center;
   width: 30px;
-  margin: 0 10px;
+  margin: 10px;
+  padding: 5px;
   background-color: rgb(199, 199, 199);
   color: rgb(99, 99, 99);
   border: 1px solid rgb(50, 50, 50);
 }
 
+.page a {
+  display: block;
+  text-decoration: none;
+}
+
+.page:hover {
+  opacity: 0.6;
+}
 /* flash */
 .flash {
   background-color: rgb(80, 252, 80);
@@ -234,7 +247,7 @@ textarea {
   display: flex;
   padding: 10px;
   justify-content: space-between;
-  font-size: 80%;
+  font-size: 15px;
 }
 
 .flash-close {

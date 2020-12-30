@@ -19,19 +19,32 @@
   <% }) }%>
 </ul>
 <!-- pagination -->
-<section class="pagination">
-  <% if(p > 1){ %>
-  <a href="/posts/?p=<%=parseInt(p)-1%>" class="page"><</a>
+<ul class="pagination">
+  <% if(pagesCount > 1) { %>} <% if(pageNumber > 1){ %>
+  <li class="page">
+    <a href="/posts/?p=1"><<</a>
+  </li>
   <% } %>
+  <!-- back -->
+  <% if(pageNumber > 1){ %>
+  <li class="page">
+    <a href="/posts/?p=<%=parseInt(pageNumber)-1%>"><</a>
+  </li>
+  <% } %>
+
   <!-- pages numbers -->
-  <% for(i = 0; i < pages; i++) {%>
-  <a href="/posts/?p=<%=i+1%> " class="page"> <%=i+1%> </a>
+  <% for(i = 0; i < pagesCount; i++) {%>
+  <li class="page">
+    <a href="/posts/?p=<%=i+1%> "> <%=i+1%> </a>
+  </li>
   <%}%>
   <!--  -->
-  <% if(p < pages){ %>
-  <a href="/posts/?p=<%=parseInt(p)+1%>" class="page">></a>
-  <% } %>
-</section>
+  <% if(pageNumber < pagesCount){ %>
+  <li class="page">
+    <a href="/posts/?p=<%=parseInt(pageNumber)+1%>">></a>
+  </li>
+  <% } %> <% } %>
+</ul>
 
 <script>
   function deletePost() {

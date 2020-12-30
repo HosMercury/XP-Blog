@@ -11,40 +11,44 @@ const pool = require('../config/db');
 router.get('/setup', async (req, res) => {
   const q = `INSERT INTO posts (title, content, user_id ) VALUES ($1, $2,$3) returning *`;
   const v = [`Hello World`, `lorem ipsum vola content`, 1];
-  const results = await pool
+  await pool
     .query(q, v)
     .then(res => res.status(200).send(res.rows[0]))
     .catch(err => res.status(500).send('database err'));
 });
 
-const paginate = async (p, res) => {
-  if (isNaN(p)) res.status(304).redirect('/?p=1');
+const paginate = async (pageNumber, res) => {
+  if (isNaN(pageNumber)) res.status(304).redirect('/?p=1');
 
   let totalPosts = 0;
 
   await pool
     .query(`SELECT COUNT(*) FROM posts`)
     .then(resp => {
-      posts = resp.rows[0];
+      totalPosts = resp.rows[0].count;
     })
-    .catch(err => res.status(200).send('database error'));
+    .catch(err => res.status(500).send('database error'));
 
-  const limit = 5;
-  const pages = Math.ceil(posts.count / limit);
+  const pagesPerPage = 1;
+  const pagesCount = Math.ceil(totalPosts / pagesPerPage);
   let offset = 0;
+  console.log('pages count', pagesCount);
+  console.log('page number', pageNumber);
 
-  if (p > 1) offset += 5;
+  if (pageNumber - 1 >= pagesCount)
+    res.status(404).send('This page is not available');
 
+  if (pageNumber > 1) offset += 1;
   const q = `SELECT * FROM posts ORDER BY id DESC LIMIT $1 OFFSET $2`;
-
   await pool
-    .query(q, [limit, offset])
+    .query(q, [pagesPerPage, offset])
     .then(resp => {
+      console.log(resp.rows, 'offset', offset);
       res.status(200).render('posts/list', {
         posts: resp.rows,
-        pages,
-        limit,
-        p,
+        pagesCount,
+        pagesPerPage,
+        pageNumber,
       });
     })
     .catch(err => res.send('pagination error'));
@@ -90,11 +94,15 @@ router.post(`/`, async (req, res) => {
   const content = req.body.content.trim();
   const id = req.body.id;
 
-  if (title.length > 4 && content.length > 10) {
+  if (
+    title.length > 4 &&
+    title.length < 100 &&
+    content.length > 10 &&
+    content.length < 5000
+  ) {
     let v = [];
     let q = '';
     let msg = '';
-    // console.log('id', id);
 
     if (id == '') {
       console.log('empty');
@@ -123,11 +131,15 @@ router.post(`/`, async (req, res) => {
       .catch(err => res.status(404));
   }
 
-  res.status(404).send('form error');
+  res
+    .status(404)
+    .send(
+      'Title length should be between 4 & 10 letters ,' +
+        'while content length should be between 100 & 5000 letters'
+    );
 });
 
 module.exports = router;
-
-// Maximun title and content
+// title , content blur should work together
 // pagination
 //auth
