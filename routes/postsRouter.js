@@ -47,26 +47,26 @@ const paginate = async (p, res) => {
         p,
       });
     })
-    .catch(err => {
-      //
-    });
+    .catch(err => res.send('pagination error'));
 };
 
 router.get(`/`, async (req, res) => {
   paginate(req.query.p, res);
 });
 
-queryPost = async (id, res, view = 'edit') => {
-  if (isNaN(id)) res.status(500).send('url error');
-
-  const q = ` SELECT * FROM posts WHERE id = $1`;
-
-  await pool
+const getPostById = async (id, res) => {
+  let post = {};
+  const q = `SELECT * FROM posts WHERE id = $1 `;
+  return await pool
     .query(q, [id])
-    .then(resp => {
-      res.render(`posts/${view}`, { post: resp.rows[0], view });
-    })
-    .catch(err => res.status(500).send('database error'));
+    .then(resp => resp.rows[0])
+    .catch(err => res.status(404).send('error finding post'));
+};
+
+const queryPost = async (id, res, view = 'edit') => {
+  if (isNaN(id)) res.status(404).send('id error');
+  const post = await getPostById(id, res);
+  res.render(`posts/${view}`, { post, view });
 };
 
 router.get(`/add`, (req, res) => {
@@ -86,46 +86,48 @@ router.get(`/view`, (req, res) => {
 });
 
 router.post(`/`, async (req, res) => {
-  const title = req.body.title;
-  const content = req.body.content;
-
-  if (title.length > 4 && content.length > 10) {
-    q =
-      'INSERT INTO posts(title, content , user_id) values($1,$2, $3) Returning *';
-    v = [title, content, 1];
-    await pool
-      .query(q, v)
-      .then(resp => {
-        res.status(200).render('posts/view', {
-          post: resp.rows[0],
-          flash: { color: 'green', msg: 'Your post successfully added' },
-        });
-      })
-      .catch(err => res.status(500).send('do not play with me'));
-  }
-});
-
-router.patch('/', async (req, res) => {
-  // this request not work
-  console.log('patch', req.body.id);
-  const title = req.body.title;
-  const content = req.body.content;
+  const title = req.body.title.trim();
+  const content = req.body.content.trim();
   const id = req.body.id;
-  if (isNaN(id)) res.status(500).send('form input error');
 
   if (title.length > 4 && content.length > 10) {
-    q = 'UPDATE posts SET title = $1 , content =$2 WHERE id = $3 Returning *';
-    v = [title, content, id];
+    let v = [];
+    let q = '';
+    let msg = '';
+    // console.log('id', id);
+
+    if (id == '') {
+      console.log('empty');
+      q =
+        'INSERT INTO posts(title, content , user_id) values($1,$2, $3) RETURNING *';
+      v = [title, content, 1];
+      msg = 'added';
+    } else if (!isNaN(id)) {
+      console.log('number');
+      q = 'UPDATE posts SET title = $1 , content =$2 WHERE id = $3 RETURNING *';
+      v = [title, content, id];
+      msg = 'updated';
+    } else {
+      console.log('not');
+      res.status(404).send('Form error');
+    }
+
     await pool
       .query(q, v)
       .then(resp => {
         res.status(200).render('posts/view', {
           post: resp.rows[0],
-          flash: { color: 'green', msg: 'Your post successfully updated' },
+          flash: { color: 'green', msg: `Your post successfully ${msg}` },
         });
       })
-      .catch(err => res.status(500).send('do not play with me'));
+      .catch(err => res.status(404));
   }
+
+  res.status(404).send('form error');
 });
 
 module.exports = router;
+
+// Maximun title and content
+// pagination
+//auth

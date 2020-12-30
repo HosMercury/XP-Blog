@@ -1,9 +1,5 @@
 <ul class="errors"></ul>
-<form
-  action="/posts"
-  method="<%= view === 'edit' ? 'PATCH' : 'POST' %>"
-  id="post-form"
->
+<form action="/posts" method="POST" id="post-form">
   <!-- id -->
   <input type="hidden" name="id" value="<%=post.id%>" />
   <!-- Title  -->

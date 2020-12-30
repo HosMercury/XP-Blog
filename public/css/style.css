@@ -288,4 +288,8 @@ textarea {
   .main-nav ul.main-menu li:last-child {
     border-bottom: none;
   }
+
+  .post-add {
+    right: 5px;
+  }
 }
