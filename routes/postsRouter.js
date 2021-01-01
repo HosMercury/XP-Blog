@@ -1,6 +1,7 @@
 let express = require('express');
 let router = express.Router();
 const pool = require('../config/db');
+const { postsPerPage, maxDisplayPagesNumbers } = require('../settings');
 
 // // middleware that is specific to this router
 // router.use(function timeLog(req, res, next) {
@@ -29,11 +30,8 @@ const paginate = async (pageNumber, res) => {
     })
     .catch(err => res.status(500).send('database error'));
 
-  const pagesPerPage = 1;
-  const pagesCount = Math.ceil(totalPosts / pagesPerPage);
+  const pagesCount = Math.ceil(totalPosts / postsPerPage);
   let offset = 0;
-  console.log('pages count', pagesCount);
-  console.log('page number', pageNumber);
 
   if (pageNumber - 1 >= pagesCount)
     res.status(404).send('This page is not available');
@@ -41,14 +39,15 @@ const paginate = async (pageNumber, res) => {
   if (pageNumber > 1) offset += 1;
   const q = `SELECT * FROM posts ORDER BY id DESC LIMIT $1 OFFSET $2`;
   await pool
-    .query(q, [pagesPerPage, offset])
+    .query(q, [postsPerPage, offset])
     .then(resp => {
       console.log(resp.rows, 'offset', offset);
       res.status(200).render('posts/list', {
         posts: resp.rows,
         pagesCount,
-        pagesPerPage,
+        postsPerPage,
         pageNumber,
+        maxDisplayPagesNumbers,
       });
     })
     .catch(err => res.send('pagination error'));
@@ -105,18 +104,15 @@ router.post(`/`, async (req, res) => {
     let msg = '';
 
     if (id == '') {
-      console.log('empty');
       q =
         'INSERT INTO posts(title, content , user_id) values($1,$2, $3) RETURNING *';
       v = [title, content, 1];
       msg = 'added';
     } else if (!isNaN(id)) {
-      console.log('number');
       q = 'UPDATE posts SET title = $1 , content =$2 WHERE id = $3 RETURNING *';
       v = [title, content, id];
       msg = 'updated';
     } else {
-      console.log('not');
       res.status(404).send('Form error');
     }
 
@@ -140,6 +136,3 @@ router.post(`/`, async (req, res) => {
 });
 
 module.exports = router;
-// title , content blur should work together
-// pagination
-//auth

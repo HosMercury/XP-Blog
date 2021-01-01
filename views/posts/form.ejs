@@ -22,27 +22,35 @@
     let err = [];
     $('.submit').prop('disabled', true);
 
-    $('.title').blur(e => {
-      if (e.target.value.length < 4) err[0] = 'Title should be more than 4';
-      if (e.target.value.length > 200)
-        err[0] = 'Title should not exceed 200 letters';
-      else if (e.target.value.length > 4) err.splice(0, 1);
-    });
-
-    $('.content').blur(e => {
-      if (e.target.value.length < 10) err[1] = 'Content should be more than 10';
-      if (e.target.value.length > 5000)
-        err[1] = 'Content should not exceed 5000 letters';
-      else if (e.target.value.length > 10) err.splice(1, 1);
+    $('.title,.content').blur(e => {
+      const name = e.target.name;
+      if (name === 'title') {
+        err.splice(0, 1);
+        const title = e.target.value;
+        if (title.length < 4) err[0] = 'Title should be more than 4';
+        if (title.length > 200) err[0] = 'Title should not exceed 200 letters';
+        if (title.length > 4 && title.length < 200) err.splice(0, 1);
+      }
+      if (name === 'content') {
+        err.splice(1, 1);
+        const content = e.target.value;
+        if (content.length < 10) err[1] = 'Content should be more than 10';
+        if (content.length > 5000)
+          err[1] = 'Content should not exceed 5000 letters';
+        if (content.length > 10 && content.length < 5000) err.splice(1, 1);
+      }
+      errors();
     });
 
     const errors = () => {
-      if (err.length < 1) $('.submit').removeAttr('disabled');
-
       $('.errors').empty();
-      err.forEach(er => {
-        if (er !== null) $('.errors').append('<li>' + er + '</li>');
-      });
+      if (err.length < 1) {
+        $('.submit').removeAttr('disabled');
+      } else {
+        err.forEach(er => {
+          if (er !== null) $('.errors').append('<li>' + er + '</li>');
+        });
+      }
     };
   });
 </script>

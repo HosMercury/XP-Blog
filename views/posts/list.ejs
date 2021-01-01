@@ -20,30 +20,46 @@
 </ul>
 <!-- pagination -->
 <ul class="pagination">
-  <% if(pagesCount > 1) { %>} <% if(pageNumber > 1){ %>
+  <% if(pagesCount > 1) { %>
+  <!----->
+  <% if(pageNumber > 1){ %>
   <li class="page">
-    <a href="/posts/?p=1"><<</a>
+    <a href="/posts/?p=1">First</a>
   </li>
   <% } %>
   <!-- back -->
   <% if(pageNumber > 1){ %>
   <li class="page">
-    <a href="/posts/?p=<%=parseInt(pageNumber)-1%>"><</a>
+    <a href="/posts/?p=<%=parseInt(pageNumber)-1%>">Previous</a>
   </li>
   <% } %>
 
   <!-- pages numbers -->
-  <% for(i = 0; i < pagesCount; i++) {%>
-  <li class="page">
-    <a href="/posts/?p=<%=i+1%> "> <%=i+1%> </a>
+  <% if(pagesCount < maxDisplayPagesNumbers) {%>
+  <!------>
+  <% for(i = 1; i <= pagesCount; i++) {%>
+  <li class="page <%= pageNumber == i ? 'current-page':'' %>">
+    <a href="/posts/?p=<%=i%> "> <%=i%> </a>
   </li>
   <%}%>
+  <!------>
+  <%} else {%>
   <!--  -->
+  <li class="page current-page">
+    <a href="/posts/?p=<%=pageNumber%>"> <%=pageNumber%> </a>
+  </li>
+  <%}%>
+  <!----->
+
   <% if(pageNumber < pagesCount){ %>
   <li class="page">
-    <a href="/posts/?p=<%=parseInt(pageNumber)+1%>">></a>
+    <a href="/posts/?p=<%=parseInt(pageNumber)+1%>">Next</a>
   </li>
-  <% } %> <% } %>
+  <% if(pagesCount >1){ %>
+  <li class="page">
+    <a href="/posts/?p=<%=parseInt(pagesCount)%>">Last</a>
+  </li>
+  <% } %> <% } %> <% } %>
 </ul>
 
 <script>

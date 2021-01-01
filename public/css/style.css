@@ -212,28 +212,38 @@ textarea {
   justify-content: center;
   font-size: 14px;
   padding-top: 20px;
-  background-color: red;
 }
 
 .page {
+  font-size: 15px;
   cursor: pointer;
   text-align: center;
-  width: 30px;
+  line-height: 25px;
   margin: 10px;
-  padding: 5px;
-  background-color: rgb(199, 199, 199);
+  padding: 0px 5px;
   color: rgb(99, 99, 99);
-  border: 1px solid rgb(50, 50, 50);
+}
+
+.current-page {
+  color: white;
+  background-color: white;
+  cursor: default;
+  font-weight: 900;
+  border: solid 1px grey;
 }
 
 .page a {
   display: block;
-  text-decoration: none;
+}
+.current-page a {
+  cursor: default;
 }
 
 .page:hover {
   opacity: 0.6;
+  text-decoration: underline;
 }
+
 /* flash */
 .flash {
   background-color: rgb(80, 252, 80);
