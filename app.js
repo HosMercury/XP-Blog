@@ -9,8 +9,10 @@ app.use(express.static(__dirname + '/public'));
 
 // Routes
 var postsRouter = require('./routes/postsRouter');
+var authRouter = require('./routes/authRouter');
 
 app.use('/posts', postsRouter);
+app.use('/', authRouter);
 app.get('/', (req, res) => res.status(304).redirect('/posts?p=1'));
 
 // app.get('/', (req, res) => req.render('posts/list'));

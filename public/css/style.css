@@ -134,8 +134,10 @@ a.post-link:hover {
 form {
   display: flex;
   flex-direction: column;
-  width: 80%;
   margin: 20px;
+  border: 1px solid rgb(216, 216, 216);
+  border-radius: 5px;
+  padding: 10px;
 }
 
 input,
@@ -150,7 +152,7 @@ textarea {
   height: 100px;
 }
 
-.submit {
+button[type='submit'] {
   cursor: pointer;
   align-self: flex-end;
   width: 100px;
@@ -163,6 +165,12 @@ textarea {
   background-color: rgb(175, 173, 173);
   color: rgb(80, 80, 80);
   cursor: default;
+}
+
+.forget-password {
+  background-color: #fff;
+  font-size: 16px;
+  align-self: flex-end;
 }
 
 .footer {
@@ -244,6 +252,9 @@ textarea {
   text-decoration: underline;
 }
 
+.current-page.page {
+  text-decoration: none;
+}
 /* flash */
 .flash {
   background-color: rgb(80, 252, 80);

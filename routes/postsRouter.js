@@ -41,7 +41,6 @@ const paginate = async (pageNumber, res) => {
   await pool
     .query(q, [postsPerPage, offset])
     .then(resp => {
-      console.log(resp.rows, 'offset', offset);
       res.status(200).render('posts/list', {
         posts: resp.rows,
         pagesCount,
