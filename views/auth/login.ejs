@@ -1,9 +1,10 @@
 <%- include ('../partials/header'); %>
 <h2>User Login</h2>
+<a href="/register">Click to Register</a>
 <form action="/login" method="post" id="auth-form">
   <div>
-    <label for="uname"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="uname" required />
+    <label for="uname"><b>Email</b></label>
+    <input type="text" placeholder="email" name="uname" required />
     <br />
     <label for="psw"><b>Password</b></label>
     <input type="password" placeholder="Enter Password" name="psw" required />
@@ -13,10 +14,5 @@
       <input type="checkbox" checked="checked" name="remember" /> Remember me
     </label>
   </div>
-
-  <div>
-    <span class="forget-password">Forgot <a href="#">password?</a></span>
-  </div>
 </form>
-
 <%- include ('../partials/footer'); %>
