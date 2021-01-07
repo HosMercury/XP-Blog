@@ -1,17 +1,22 @@
 <%- include ('../partials/header'); %>
 <h2>User Login</h2>
-<a href="/register">Click to Register</a>
-<form action="/login" method="post" id="auth-form">
+<a href="/users/register">Click to Register</a>
+<form action="/users/login" method="post" id="auth-form">
   <div>
-    <label for="uname"><b>Email</b></label>
-    <input type="text" placeholder="email" name="uname" required />
+    <label for="email"><b>Email</b></label>
+    <input type="text" placeholder="email" name="email" required />
     <br />
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required />
+    <label for="password"><b>Password</b></label>
+    <input
+      type="password"
+      placeholder="Enter Password"
+      name="password"
+      required
+    />
     <br />
     <button type="submit">Login</button>
     <label>
-      <input type="checkbox" checked="checked" name="remember" /> Remember me
+      <!-- <input type="checkbox" checked="checked" name="remember" /> Remember me -->
     </label>
   </div>
 </form>
