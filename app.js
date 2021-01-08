@@ -4,8 +4,10 @@ const app = express();
 const port = process.env.PORT || 3000;
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const authMiddleware = require('./middlewares/authMiddleware');
 
 app.use(cookieParser());
+app.use(authMiddleware);
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
@@ -24,5 +26,5 @@ app.get('/', (req, res) => res.status(304).redirect('/posts?p=1'));
 app.set('view engine', 'ejs');
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`Listening at http://localhost:${port}`);
 });

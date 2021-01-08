@@ -155,7 +155,7 @@ textarea {
 button[type='submit'] {
   cursor: pointer;
   align-self: flex-end;
-  width: 100px;
+  width: 70px;
   background-color: rgb(1, 61, 1);
   color: white;
   margin: 20px 30px;
@@ -277,6 +277,19 @@ button[type='submit'] {
   border: none;
   align-self: flex-end;
   cursor: pointer;
+}
+
+#logout {
+  padding: 0;
+  margin: 0;
+  display: inline;
+}
+
+#logout button[type='submit'] {
+  padding: 0;
+  margin: 0px;
+  background-color: rgb(232, 232, 232);
+  color: black;
 }
 
 @media only screen and (max-width: 700px) {

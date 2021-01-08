@@ -2,6 +2,7 @@ let express = require('express');
 let router = express.Router();
 const pool = require('../config/db');
 const { postsPerPage, maxDisplayPagesNumbers } = require('../settings');
+const authMiddleware = require('../middlewares/authMiddleware');
 
 // // middleware that is specific to this router
 // router.use(function timeLog(req, res, next) {
@@ -52,7 +53,9 @@ const paginate = async (pageNumber, res) => {
     .catch(err => res.send('pagination error'));
 };
 
-router.get(`/`, async (req, res) => {
+router.get(`/`, authMiddleware, async (req, res) => {
+  console.log('req.cookies from posts', req.cookies);
+
   paginate(req.query.p, res);
 });
 

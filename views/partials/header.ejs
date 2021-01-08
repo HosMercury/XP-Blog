@@ -26,15 +26,23 @@
       
           <ul class="right-menu">
             <li>
+              <% if(locals.user) { %> 
+                <span><%= locals.user.name %> </span>
+                <form action="/users/logout" method="post" id="logout" >
+                <button type="submit">Logout</button>
+                </form>
+                <% }else{ %> 
               <a href="/users/login"><i class="fas fa-user"></i></i></a>
             </li>
+            <%} %> 
+
             <li>
               <a href="#"><i class="fas fa-search"></i></a>
             </li>
           </ul>
       </nav>
     <main class="main">
-      
+
       <% if(locals.flash) { %>
         <section class="flash">
           <h5 class="flash-msg"><%=flash.msg%></h5> 
