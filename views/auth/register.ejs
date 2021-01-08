@@ -1,0 +1,21 @@
+<%- include ('../partials/header'); %>
+<h2>User Login</h2>
+<form action="/users/register" method="post" id="auth-form">
+  <div>
+    <label for="name"><b>Name</b></label>
+    <input type="text" placeholder="Your name" name="name" required />
+    <br />
+    <label for="email"><b>Email</b></label>
+    <input type="text" placeholder="Enter Email" name="email" required />
+    <br />
+    <label for="password"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="password" required />
+    <br />
+    <label for="password"><b>Retype password</b></label>
+    <input type="password" placeholder="Retype Password" name="password2" required />
+    <br />
+    <button type="submit">Register</button>
+    <label>
+  </div>
+</form>
+<%- include ('../partials/footer'); %>
